@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IActiveTextarea } from "../../types/widget";
+import { IActiveTextarea, IConditionNode } from "../../types/widget";
 import { WidgetSliceState } from "../types";
 import { initRootConditionReducer } from "./reducers/initRootCondition.reducer";
 import { addConditionReducer } from "./reducers/addCondition.reducer";
@@ -44,6 +44,9 @@ export const widgetSlice = createSlice({
                 state.activeTextarea.location = location;
             }
         },
+        setConditions: (state, { payload: conditions }: PayloadAction<Record<string, IConditionNode>>) => {
+            state.conditions = conditions;
+        },
     },
 });
 export const {
@@ -53,5 +56,6 @@ export const {
     deleteCondition,
     addVarName,
     changeActiveTextarea,
+    setConditions,
 } = widgetSlice.actions;
 export const widgetReducer = widgetSlice.reducer;

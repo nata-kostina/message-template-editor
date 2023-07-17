@@ -1,21 +1,10 @@
 import { InferType } from "yup";
-import { varNamesSchema } from "../validation/schemas";
+import { conditionSchema, varNamesSchema } from "../validation/schemas";
 
-export type CallbackSave = (template: string) => Promise<void>;
+export type CallbackSave = (template: Record<string, IConditionNode>) => Promise<void>;
 export type VarNames = InferType<typeof varNamesSchema>;
 
-export interface IConditionNode {
-    id: string;
-    parentId: string | null;
-    startContent: string;
-    condition: {
-        ifClauseId: string;
-        thenClauseId: string;
-        elseClauseId: string;
-        endContentId: string;
-    } | null;
-
-}
+export type IConditionNode = InferType<typeof conditionSchema>;
 
 export interface IActiveTextarea {
     nodeId: string | null;
