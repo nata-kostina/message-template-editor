@@ -6,6 +6,5 @@ export const initRootConditionReducer = (state: WidgetSliceState, { payload: nod
     state.rootConditionId = node.id;
     state.conditions[node.id] = node;
     state.activeTextarea.nodeId = node.id;
-    state.activeTextarea.type = "template";
     state.activeTextarea.location = node.startContent.length;
 };

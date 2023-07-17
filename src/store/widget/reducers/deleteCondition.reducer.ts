@@ -12,7 +12,6 @@ export const deleteConditionReducer = (state: WidgetSliceState, action: PayloadA
         }
         node.condition = null;
         state.activeTextarea.nodeId = node.id;
-        state.activeTextarea.type = "template";
         state.activeTextarea.location = node.startContent.length;
     }
 };

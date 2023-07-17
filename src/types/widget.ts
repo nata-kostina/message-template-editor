@@ -9,7 +9,7 @@ export interface IConditionNode {
     parentId: string | null;
     startContent: string;
     condition: {
-        conditionClause: string;
+        ifClauseId: string;
         thenClauseId: string;
         elseClauseId: string;
         endContentId: string;
@@ -19,6 +19,5 @@ export interface IConditionNode {
 
 export interface IActiveTextarea {
     nodeId: string | null;
-    type: "template" | "condition";
     location: number;
 }

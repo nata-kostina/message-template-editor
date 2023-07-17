@@ -23,15 +23,15 @@ export const WidgetTextarea = ({ node, type, content }: Props) => {
 
     const onSelect = () => {
         if (ref.current) {
-            debouncedDispatchChangeActiveTextarea({ nodeId: node.id, type, location: ref.current.selectionStart });
+            debouncedDispatchChangeActiveTextarea({ nodeId: node.id, location: ref.current.selectionStart });
         }
     };
     const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         event.preventDefault();
-        dispatch(setContent({ nodeId: node.id, content: event.target.value, type }));
+        dispatch(setContent({ nodeId: node.id, content: event.target.value }));
     };
     useEffect(() => {
-        if (node.id === activeTextarea.nodeId && type === activeTextarea.type
+        if (node.id === activeTextarea.nodeId
             && ref.current && document.activeElement !== ref.current &&
             document.hasFocus()) {
             ref.current.focus();

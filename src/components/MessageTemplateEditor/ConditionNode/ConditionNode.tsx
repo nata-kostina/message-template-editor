@@ -26,11 +26,7 @@ export const ConditionNode = React.memo(({ nodeId }: Props) => {
                                 <div>
                                     IF:{" "}
                                     <span>
-                                        <WidgetTextarea
-                                            node={node}
-                                            content={node.condition.conditionClause}
-                                            type="condition"
-                                        />
+                                        <ConditionNode nodeId={node.condition.ifClauseId} />
                                     </span>
                                 </div>
                                 <div>

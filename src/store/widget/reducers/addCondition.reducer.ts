@@ -26,17 +26,23 @@ export const addConditionReducer = (state: WidgetSliceState) => {
             startContent: "",
             condition: null,
         };
+        const ifClauseNode: IConditionNode = {
+            id: uuidv4(),
+            parentId: nodeId,
+            startContent: "",
+            condition: null,
+        };
         node.condition = {
-            conditionClause: "",
+            ifClauseId: ifClauseNode.id,
             thenClauseId: thenClauseNode.id,
             elseClauseId: elseClauseNode.id,
             endContentId: endNode.id,
         };
         node.startContent = node.startContent.slice(0, location ?? 0);
+        state.conditions[node.condition.ifClauseId] = ifClauseNode;
         state.conditions[node.condition.thenClauseId] = thenClauseNode;
         state.conditions[node.condition.elseClauseId] = elseClauseNode;
-        state.activeTextarea.nodeId = node.id;
+        state.activeTextarea.nodeId = ifClauseNode.id;
         state.activeTextarea.location = 0;
-        state.activeTextarea.type = "condition";
     }
 };
