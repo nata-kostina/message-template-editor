@@ -130,7 +130,7 @@
       { "accessibility": "explicit" }
     ],
     "@typescript-eslint/explicit-module-boundary-types": [
-      "warn",
+      "off",
       {
         "allowArgumentsExplicitlyTypedAsAny": false,
         "allowDirectConstAssertionInArrowFunctions": true,
@@ -386,8 +386,10 @@
     "react/state-in-constructor": "off",
     "react/static-property-placement": "off",
     "react/jsx-no-useless-fragment": "off",
+    "react/require-render-return": "off",
 
     // ****************** react-hooks ******************
     "react-hooks/exhaustive-deps": "warn"
-  }
+  },
+  "ignorePatterns": ["react-app-env.d.ts", "setupTests.ts"]
 }
