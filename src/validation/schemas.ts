@@ -4,7 +4,7 @@ export const varNamesSchema = array().of(string().required()).required();
 export const conditionSchema = object({
     id: string().required(),
     parentId: string().nullable().defined(),
-    startContent: string().required(),
+    startContent: string().defined().strict(true),
     condition: object({
         ifClauseId: string().required(),
         thenClauseId: string().required(),

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { MessageTemplateEditor } from "./components/MessageTemplateEditor/MessageTemplateEditor";
+import React, { useState, useEffect, useContext } from "react";
 import { useVarNames } from "./hooks/useVarNames";
 import { useTemplate } from "./hooks/useTemplate";
 import { IConditionNode } from "./types/widget";
-import { useAppDispatch } from "./hooks/reduxHooks";
-import { setConditions } from "./store/widget/widgetSlice";
 import { validateTemplate } from "./validation/validate";
+import { WidgetDispatchContext } from "./contexts/widget/widget.context";
+import { MessageTemplateEditorContainer } from "./components/MessageTemplateEditor/MessageTemplateEditorContainer";
+import { setConditions } from "./contexts/widget/widget.action.creators";
 
 export const App = () => {
-    const dispatch = useAppDispatch();
+    const dispatch = useContext(WidgetDispatchContext);
     const [isWidgetOpen, setIsWidgetOpen] = useState(false);
     const { loading: varNameLoading, data: arrVarNames } = useVarNames();
     const { loading: templateLoading, data: template, setTemplate } = useTemplate();
@@ -21,14 +21,14 @@ export const App = () => {
             dispatch(setConditions(template));
         }
     }, [templateLoading, template, dispatch]);
-
+    console.log("App render");
     return (
         <div>
             {(varNameLoading || templateLoading) ? <p>Loading...</p> : (
                 <>
                     <button onClick={() => setIsWidgetOpen(true)}>Message Editor</button>
                     {isWidgetOpen && arrVarNames && (
-                        <MessageTemplateEditor
+                        <MessageTemplateEditorContainer
                             arrVarNames={arrVarNames}
                             template={template}
                             callbackSave={onSave}

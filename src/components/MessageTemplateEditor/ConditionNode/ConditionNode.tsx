@@ -1,25 +1,22 @@
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-import { deleteCondition } from "../../../store/widget/widgetSlice";
-import { WidgetTextarea } from "../WidgetTextarea/WidgetTextarea";
+import React, { useContext } from "react";
+import { WidgetContext, WidgetDispatchContext } from "../../../contexts/widget/widget.context";
+import { WidgetTextareaContainer } from "../WidgetTextarea/WidgetTextareaContainer";
+import { deleteCondition } from "../../../contexts/widget/widget.action.creators";
 
 interface Props {
     nodeId: string;
 }
 
-export const ConditionNode = React.memo(({ nodeId }: Props) => {
-    const dispatch = useAppDispatch();
-    const node = useAppSelector((state) => state.widget.conditions[nodeId]);
+export const ConditionNode = ({ nodeId }: Props) => {
+    const { conditions } = useContext(WidgetContext);
+    const dispatch = useContext(WidgetDispatchContext);
+    const node = conditions[nodeId];
     const deleteConditionBlock = () => dispatch(deleteCondition(nodeId));
     return (
         <>
             {node && (
                 <div style={{ width: "100%" }}>
-                    <WidgetTextarea
-                        node={node}
-                        content={node.startContent}
-                        type="template"
-                    />
+                    <WidgetTextareaContainer node={node} />
                     {node.condition && (
                         <div>
                             <div style={{ paddingLeft: "50px", width: "100%" }}>
@@ -53,5 +50,4 @@ export const ConditionNode = React.memo(({ nodeId }: Props) => {
             )}
         </>
     );
-});
-ConditionNode.displayName = "ConditionNode";
+};
