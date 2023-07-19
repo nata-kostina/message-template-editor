@@ -12,15 +12,13 @@ export const useTemplate = () => {
     const [template, setTemplate] = useLocalStorage<Record<string, IConditionNode> | null>("template", null);
 
     useEffect(() => {
-        if (template) {
-            validateTemplate(template)
-                .then((data) => {
-                    setStatus({ loading: false, data });
-                })
-                .catch(() => {
-                    setStatus({ loading: false, data: null });
-                });
-        }
+        validateTemplate(template)
+            .then((data) => {
+                setStatus({ loading: false, data });
+            })
+            .catch(() => {
+                setStatus({ loading: false, data: null });
+            });
     }, [template]);
 
     return { ...status, setTemplate };

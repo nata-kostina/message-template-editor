@@ -1,21 +1,20 @@
 import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { IConditionNode } from "../../../types/widget";
 
 interface Props {
-    node: IConditionNode;
+    content: string;
     onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     onSelect: () => void;
 }
 
-const WidgetTextarea = React.forwardRef<HTMLTextAreaElement, Props>(({ node, onChange, onSelect }, ref) => {
+const WidgetTextarea = React.forwardRef<HTMLTextAreaElement, Props>(({ content, onChange, onSelect }, ref) => {
     return (
         <TextareaAutosize
             onChange={onChange}
             onSelect={onSelect}
-            value={node.startContent}
+            value={content}
             style={{ resize: "none" }}
-            minRows={7}
+            minRows={3}
             cols={100}
             autoComplete="false"
             ref={ref}

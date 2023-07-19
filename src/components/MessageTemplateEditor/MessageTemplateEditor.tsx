@@ -1,5 +1,5 @@
 import React from "react";
-import { VarNames } from "../../types/widget";
+import { IConditionNode, VarNames } from "../../types/widget";
 import { ConditionNode } from "./ConditionNode/ConditionNode";
 import { VarNamesList } from "../VarNamesList/VarNamesList";
 
@@ -7,16 +7,16 @@ interface Props {
     arrVarNames: VarNames;
     addNewCondition: () => void;
     addVariableName: (varName: string) => void;
-    saveTemplate: () => void;
     rootConditionId: string;
+    template: Record<string, IConditionNode>;
 }
 
 export const MessageTemplateEditor = React.memo(({
     arrVarNames,
     addNewCondition,
     addVariableName,
-    saveTemplate,
     rootConditionId,
+    template,
 }: Props) => {
     return (
         <div
@@ -28,8 +28,7 @@ export const MessageTemplateEditor = React.memo(({
         >
             <VarNamesList arrVarNames={arrVarNames} addVarName={addVariableName} />
             <button onClick={addNewCondition}>IF-THEN-ELSE</button>
-            <ConditionNode nodeId={rootConditionId} />
-            <button onClick={saveTemplate}>Save</button>
+            <ConditionNode nodeId={rootConditionId} template={template} />
         </div>
     );
 });

@@ -9,8 +9,9 @@ export const validateVarNames = async <T>(value: T) => {
     }
 };
 
-export const validateTemplate = async (template: Record<string, IConditionNode>): Promise<Record<string, IConditionNode>> => {
+export const validateTemplate = async (template: Record<string, IConditionNode> | null): Promise<Record<string, IConditionNode> | null> => {
     try {
+        if (!template) { return template; }
         const validatingConditions = Object.values(template).map((condition) =>
             validateCondition(condition));
         const validatedConditions = await Promise.all(validatingConditions);
@@ -28,6 +29,6 @@ export const validateCondition = async <T>(value: T): Promise<IConditionNode> =>
         const result = await conditionSchema.validate(value);
         return result;
     } catch (err) {
-        throw new Error("Error! [Local Storage] - Invalid value for `template`");
+        throw new Error("Error! Invalid template");
     }
 };

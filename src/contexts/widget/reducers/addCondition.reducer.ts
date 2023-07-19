@@ -4,10 +4,13 @@ import { IConditionNode } from "../../../types/widget";
 import { WidgetState } from "../../../types/context";
 
 export const addConditionReducer = (state: WidgetState): WidgetState => {
-    const { nodeId, location } = state.activeTextarea;
-    const node = nodeId ? state.conditions[nodeId] : null;
-
     const nextState = produce(state, draft => {
+        const { nodeId, location } = draft.activeTextarea;
+        const node = nodeId ? draft.conditions[nodeId] : null;
+        const parentNode = node?.parentId ? draft.conditions[node.parentId] : null;
+        if (parentNode?.condition?.ifClauseId === nodeId) {
+            return;
+        }
         if (nodeId && node && !node.condition) {
             const endNode: IConditionNode = {
                 id: uuidv4(),

@@ -5,7 +5,7 @@ import {
 } from "../../types/context";
 import { IConditionNode, IActiveTextarea } from "../../types/widget";
 
-export const initRoot = (node: IConditionNode): InitRootAction => ({ type: Actions.initRootCondition, payload: node });
+export const initRoot = (): InitRootAction => ({ type: Actions.initRootCondition });
 
 export const addCondition = (): AddConditionAction => ({ type: Actions.addCondition });
 

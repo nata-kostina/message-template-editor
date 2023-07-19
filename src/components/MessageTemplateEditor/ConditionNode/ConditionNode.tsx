@@ -1,41 +1,42 @@
 import React, { useContext } from "react";
-import { WidgetContext, WidgetDispatchContext } from "../../../contexts/widget/widget.context";
+import { WidgetDispatchContext } from "../../../contexts/widget/widget.context";
 import { WidgetTextareaContainer } from "../WidgetTextarea/WidgetTextareaContainer";
 import { deleteCondition } from "../../../contexts/widget/widget.action.creators";
+import { IConditionNode } from "../../../types/widget";
 
 interface Props {
     nodeId: string;
+    template: Record<string, IConditionNode>;
 }
 
-export const ConditionNode = ({ nodeId }: Props) => {
-    const { conditions } = useContext(WidgetContext);
+export const ConditionNode = ({ nodeId, template }: Props) => {
     const dispatch = useContext(WidgetDispatchContext);
-    const node = conditions[nodeId];
+    const node = template[nodeId];
     const deleteConditionBlock = () => dispatch(deleteCondition(nodeId));
     return (
         <>
             {node && (
                 <div style={{ width: "100%" }}>
-                    <WidgetTextareaContainer node={node} />
+                    <WidgetTextareaContainer nodeId={node.id} content={node.startContent} />
                     {node.condition && (
                         <div>
                             <div style={{ paddingLeft: "50px", width: "100%" }}>
                                 <div>
                                     IF:{" "}
                                     <span>
-                                        <ConditionNode nodeId={node.condition.ifClauseId} />
+                                        <ConditionNode nodeId={node.condition.ifClauseId} template={template} />
                                     </span>
                                 </div>
                                 <div>
                                     THEN:{" "}
                                     <span>
-                                        <ConditionNode nodeId={node.condition.thenClauseId} />
+                                        <ConditionNode nodeId={node.condition.thenClauseId} template={template} />
                                     </span>
                                 </div>
                                 <div>
                                     ELSE:{" "}
                                     <span>
-                                        <ConditionNode nodeId={node.condition.elseClauseId} />
+                                        <ConditionNode nodeId={node.condition.elseClauseId} template={template} />
                                     </span>
                                 </div>
 
@@ -43,7 +44,7 @@ export const ConditionNode = ({ nodeId }: Props) => {
                                     Delete condition
                                 </button>
                             </div>
-                            <ConditionNode nodeId={node.condition.endContentId} />
+                            <ConditionNode nodeId={node.condition.endContentId} template={template} />
                         </div>
                     )}
                 </div>

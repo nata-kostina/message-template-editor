@@ -3,7 +3,6 @@ import { Action, WidgetState } from "../../types/context";
 import { rootReducer } from "./reducers/root.reducer";
 
 const initialState: WidgetState = {
-    rootConditionId: null,
     conditions: {},
     activeTextarea: { nodeId: null, location: 0 },
 };

@@ -1,10 +1,10 @@
 import { produce } from "immer";
 import { WidgetState } from "../../../types/context";
-import { IConditionNode } from "../../../types/widget";
+import { generateNode } from "../../../utils/generateNode";
 
-export const initRootConditionReducer = (state: WidgetState, node: IConditionNode): WidgetState => {
+export const initRootConditionReducer = (state: WidgetState): WidgetState => {
     const nextState = produce(state, draft => {
-        draft.rootConditionId = node.id;
+        const node = generateNode("");
         draft.conditions[node.id] = node;
         draft.activeTextarea.nodeId = node.id;
         draft.activeTextarea.location = node.startContent.length;
