@@ -1,0 +1,40 @@
+:root {
+    /* COLORS */
+    --color-primary: #5B8AF7;
+    --color-highlight: #E25750;
+
+    --color-blue-l: #282A30;
+    --color-blue-m: #404149;
+    --color-blue-s: #51525C;
+
+    --color-grey-m: #CCCCCC;
+
+    --color-white: #FFFFFF;
+
+    /* SIZES */
+    --font-size-default: 1rem;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url(./assets/fonts/Montserrat-Regular.ttf);
+    font-weight: 400;
+}
+
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    box-sizing: border-box;
+
+    background-color: var(--color-blue-l);
+}

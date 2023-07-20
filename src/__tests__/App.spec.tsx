@@ -8,8 +8,8 @@ import { WidgetContext } from "../contexts/widget/widget.context";
 
 describe("App", () => {
     it("should show loader when data are loading", () => {
-        const { getByText } = render(<App />);
-        const loader = getByText(/Loading.../i);
+        const { getByTestId } = render(<App />);
+        const loader = getByTestId("loader");
         expect(loader).toBeInTheDocument();
     });
 
@@ -20,8 +20,8 @@ describe("App", () => {
         jest.spyOn(CustomUseTemplateHook, "useTemplate").mockImplementation(() => {
             return { loading: false, data: null, setTemplate: jest.fn() };
         });
-        const { queryByText } = render(<App />);
-        const loader = queryByText(/Loading.../i);
+        const { queryByTestId } = render(<App />);
+        const loader = queryByTestId("loader");
         expect(loader).not.toBeInTheDocument();
     });
 

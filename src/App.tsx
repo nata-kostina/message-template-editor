@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
+import styles from "./styles.module.css";
 import { useVarNames } from "./hooks/useVarNames";
 import { useTemplate } from "./hooks/useTemplate";
 import { IConditionNode } from "./types/widget";
@@ -7,6 +8,7 @@ import { WidgetDispatchContext } from "./contexts/widget/widget.context";
 import { MessageTemplateEditorContainer } from "./components/MessageTemplateEditor/MessageTemplateEditorContainer";
 import { initRoot, setConditions } from "./contexts/widget/widget.action.creators";
 import { generateNode } from "./utils/generateNode";
+import { Loader } from "./components/Loader/Loader";
 
 export const App = () => {
     const dispatch = useContext(WidgetDispatchContext);
@@ -34,8 +36,8 @@ export const App = () => {
     }, []);
 
     return (
-        <div>
-            {(varNameLoading || templateLoading) ? <p>Loading...</p> : (
+        <main className={styles.main}>
+            {(varNameLoading || templateLoading) ? <Loader /> : (
                 <>
                     <button onClick={() => setIsWidgetOpen(true)}>Message Editor</button>
                     {isWidgetOpen && arrVarNames && (
@@ -47,6 +49,6 @@ export const App = () => {
                     )}
                 </>
             )}
-        </div>
+        </main>
     );
 };
