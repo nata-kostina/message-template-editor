@@ -7,8 +7,10 @@ export const setActiveTextareaReducer = (state: WidgetState, textarea: IActiveTe
     const nextState = produce(state, draft => {
         if (draft.activeTextarea.nodeId !== nodeId
                 || draft.activeTextarea.location !== location) {
-            draft.activeTextarea.nodeId = nodeId;
-            draft.activeTextarea.location = location;
+            if (nodeId && draft.conditions[nodeId]) {
+                draft.activeTextarea.nodeId = nodeId;
+                draft.activeTextarea.location = location;
+            }
         }
     });
     return nextState;

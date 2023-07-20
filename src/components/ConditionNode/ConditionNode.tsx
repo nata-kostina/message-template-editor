@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { WidgetDispatchContext } from "../../../contexts/widget/widget.context";
-import { WidgetTextareaContainer } from "../WidgetTextarea/WidgetTextareaContainer";
-import { deleteCondition } from "../../../contexts/widget/widget.action.creators";
-import { IConditionNode } from "../../../types/widget";
+import { WidgetDispatchContext } from "../../contexts/widget/widget.context";
+import { WidgetTextareaContainer } from "../MessageTemplateEditor/WidgetTextarea/WidgetTextareaContainer";
+import { deleteCondition } from "../../contexts/widget/widget.action.creators";
+import { IConditionNode } from "../../types/widget";
 
 interface Props {
     nodeId: string;
@@ -17,7 +17,11 @@ export const ConditionNode = ({ nodeId, template }: Props) => {
         <>
             {node && (
                 <div style={{ width: "100%" }}>
-                    <WidgetTextareaContainer nodeId={node.id} content={node.startContent} />
+                    <WidgetTextareaContainer
+                        nodeId={node.id}
+                        content={node.startContent}
+                        data-testid="node-start-content"
+                    />
                     {node.condition && (
                         <div>
                             <div style={{ paddingLeft: "50px", width: "100%" }}>
@@ -44,7 +48,9 @@ export const ConditionNode = ({ nodeId, template }: Props) => {
                                     Delete condition
                                 </button>
                             </div>
-                            <ConditionNode nodeId={node.condition.endContentId} template={template} />
+                            <span>
+                                <ConditionNode nodeId={node.condition.endContentId} template={template} />
+                            </span>
                         </div>
                     )}
                 </div>

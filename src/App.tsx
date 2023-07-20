@@ -6,6 +6,7 @@ import { validateTemplate } from "./validation/validate";
 import { WidgetDispatchContext } from "./contexts/widget/widget.context";
 import { MessageTemplateEditorContainer } from "./components/MessageTemplateEditor/MessageTemplateEditorContainer";
 import { initRoot, setConditions } from "./contexts/widget/widget.action.creators";
+import { generateNode } from "./utils/generateNode";
 
 export const App = () => {
     const dispatch = useContext(WidgetDispatchContext);
@@ -22,7 +23,8 @@ export const App = () => {
             if (template) {
                 dispatch(setConditions(template));
             } else {
-                dispatch(initRoot());
+                const rootNode = generateNode("");
+                dispatch(initRoot(rootNode));
             }
         }
     }, [templateLoading, template, dispatch]);

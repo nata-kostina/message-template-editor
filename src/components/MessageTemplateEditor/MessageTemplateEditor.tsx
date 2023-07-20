@@ -1,6 +1,6 @@
 import React from "react";
 import { IConditionNode, VarNames } from "../../types/widget";
-import { ConditionNode } from "./ConditionNode/ConditionNode";
+import { ConditionNode } from "../ConditionNode/ConditionNode";
 import { VarNamesList } from "../VarNamesList/VarNamesList";
 
 interface Props {

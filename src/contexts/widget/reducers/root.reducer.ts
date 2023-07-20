@@ -12,7 +12,7 @@ export const rootReducer = (state: WidgetState, action: Action): WidgetState => 
         case Actions.addCondition:
             return addConditionReducer(state);
         case Actions.initRootCondition:
-            return initRootConditionReducer(state);
+            return initRootConditionReducer(state, action.payload);
         case Actions.setActiveTextarea:
             return setActiveTextareaReducer(state, action.payload);
         case Actions.setConditions:

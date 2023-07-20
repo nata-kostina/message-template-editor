@@ -9,7 +9,7 @@ interface Props {
 export const VarNamesForm = ({ values, onChange }: Props) => {
     const varNames = Object.keys(values);
     return (
-        <form>
+        <form name="form">
             {varNames.map((varName) => {
                 return (
                     <VarNameInput key={varName} onChange={onChange} varName={varName} />

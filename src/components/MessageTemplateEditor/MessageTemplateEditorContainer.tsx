@@ -39,7 +39,7 @@ export const MessageTemplateEditorContainer = ({ arrVarNames, callbackSave, clos
 
     return (
         <>{rootConditionId && (
-            <>
+            <div data-testid="message-editor">
                 <MessageTemplateEditor
                     rootConditionId={rootConditionId}
                     arrVarNames={arrVarNames}
@@ -59,7 +59,7 @@ export const MessageTemplateEditorContainer = ({ arrVarNames, callbackSave, clos
                         template={conditions}
                     />
                 )}
-            </>
+            </div>
         )}
         </>
     );
