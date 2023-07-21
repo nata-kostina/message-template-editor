@@ -10,7 +10,11 @@ interface Props {
     togglePreview: (value: boolean) => void;
 }
 
-export const MessagePreviewContainer = React.memo(({ togglePreview, arrVarNames, template }: Props) => {
+export const MessagePreviewContainer = React.memo(({
+    togglePreview,
+    arrVarNames,
+    template,
+}: Props) => {
     const [message, setMessage] = useState("");
     const [values, setValues] = useState<Record<string, string | null> | null>(null);
 
@@ -44,7 +48,7 @@ export const MessagePreviewContainer = React.memo(({ togglePreview, arrVarNames,
         debounce((payload: { name: string; value: string; }) =>
             changeValue(payload)), [changeValue]);
     return (
-        <div>
+        <>
             {values && (
                 <MessagePreview
                     values={values}
@@ -53,7 +57,7 @@ export const MessagePreviewContainer = React.memo(({ togglePreview, arrVarNames,
                     togglePreview={togglePreview}
                 />
             )}
-        </div>
+        </>
     );
 });
 

@@ -3,4 +3,35 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn {
+    padding: 2rem 3rem;
+
+    font-size: var(--font-size-default);
+    color: inherit;
+
+    background-color: var(--color-blue-m);
+    outline: none;
+    border: unset;
+    border-radius: 1.5rem;
+
+    box-shadow: unset;
+    backface-visibility: hidden;
+    transition: all .2s;
+}
+
+.btn:hover, 
+.btn:focus-visible {
+    background-color: var(--color-primary);
+    box-shadow: var(--box-shadow-normal);
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.btn:active {
+    box-shadow: var(--box-shadow-reduced);
+    transform: scale(0.98);
 }

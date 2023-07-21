@@ -1,0 +1,36 @@
+.list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-column-gap: 1.5rem;
+
+  list-style: none;
+}
+
+.list__title {
+  font-size: var(--font-size-default);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.btn {
+  padding: 0.7rem 1rem;
+  border: unset;
+  outline: none;
+  border-radius: 0.8rem;
+
+  background-color: var(--color-blue-l);
+
+  font-size: var(--font-size-default);
+  color: var(--color-text-highlight);
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--color-blue-s);
+}

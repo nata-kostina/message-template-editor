@@ -113,12 +113,12 @@ describe("Condition Node", () => {
                 condition: null,
             },
         };
-        const { getByRole } = render(
+        const { getByTestId } = render(
             <WidgetDispatchContext.Provider value={mockDispatch}>
                 <ConditionNode nodeId={nodeId} template={template} />
             </WidgetDispatchContext.Provider>,
         );
-        const button = getByRole("button", { name: "Delete condition" });
+        const button = getByTestId("delete-condition");
         expect(button).toBeInTheDocument();
 
         fireEvent.click(button);

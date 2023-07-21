@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { WidgetTextareaContainer } from "../WidgetTextareaContainer";
-import { WidgetState } from "../../../../types/context";
-import { WidgetContext } from "../../../../contexts/widget/widget.context";
+import { WidgetContext } from "../../../contexts/widget/widget.context";
+import { WidgetState } from "../../../types/context";
 
 describe("Widget Textarea Container", () => {
     beforeEach(() => {

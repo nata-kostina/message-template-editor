@@ -8,8 +8,8 @@ const initialArrVarNames = ["firstname", "lastname", "company", "position"];
 export const useVarNames = () => {
     const [status, setStatus] = useState<{
         loading: boolean;
-        data?: VarNames;
-    }>({ loading: true });
+        data: VarNames | null;
+    }>({ loading: true, data: null });
 
     const [arrVarNames, setArrVarNames] = useLocalStorage<string[]>("arrVarNames", initialArrVarNames);
 

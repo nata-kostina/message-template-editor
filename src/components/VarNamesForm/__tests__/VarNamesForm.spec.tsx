@@ -14,9 +14,9 @@ describe("Form with variable names inputs", () => {
     it("should render all input fields according to input values", () => {
         const mockValues = { firstname: null, lastname: null };
         const mockOnChange = jest.fn(() => {});
-        const { getByPlaceholderText } = render(<VarNamesForm values={mockValues} onChange={mockOnChange} />);
-        const firstnameInput = getByPlaceholderText(/firstname/i);
-        const lastnameInput = getByPlaceholderText(/lastname/i);
+        const { getByLabelText } = render(<VarNamesForm values={mockValues} onChange={mockOnChange} />);
+        const firstnameInput = getByLabelText(/firstname/i);
+        const lastnameInput = getByLabelText(/lastname/i);
         expect(firstnameInput).toBeInTheDocument();
         expect(lastnameInput).toBeInTheDocument();
     });
@@ -24,8 +24,8 @@ describe("Form with variable names inputs", () => {
     it("should call onChange handler", () => {
         const mockValues = { firstname: null, lastname: null };
         const mockOnChange = jest.fn(() => {});
-        const { getByPlaceholderText } = render(<VarNamesForm values={mockValues} onChange={mockOnChange} />);
-        const firstnameInput = getByPlaceholderText(/firstname/i);
+        const { getByLabelText } = render(<VarNamesForm values={mockValues} onChange={mockOnChange} />);
+        const firstnameInput = getByLabelText(/firstname/i);
         fireEvent.change(firstnameInput, { target: { value: "John" } });
         expect(mockOnChange).toBeCalled();
     });

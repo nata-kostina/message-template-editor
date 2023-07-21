@@ -1,6 +1,8 @@
 import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { VarNamesForm } from "./VarNamesForm/VarNamesForm";
+import styles from "./styles.module.css";
+import { Button } from "../Button/Button";
+import { VarNamesForm } from "../VarNamesForm/VarNamesForm";
 
 interface Props {
     values: Record<string, string | null>;
@@ -9,21 +11,31 @@ interface Props {
     onChange: (payload: { name: string; value: string; }) => void;
 }
 
-export const MessagePreview = React.memo(({ togglePreview, values, message, onChange }: Props) => {
-    return (
-        <div>
-            <TextareaAutosize
-                value={message}
-                style={{ resize: "none" }}
-                minRows={3}
-                cols={100}
-                autoComplete="false"
-                readOnly={true}
-            />
-            <VarNamesForm values={values} onChange={onChange} />
-            <button onClick={() => togglePreview(false)}>Close</button>
-        </div>
-    );
-});
+export const MessagePreview = React.memo(
+    ({ togglePreview, values, message, onChange }: Props) => {
+        return (
+            <div className={styles.preview}>
+                <div className={styles.preview__top}>
+                    <h4 className={styles.textarea__title}>Message</h4>
+                    <TextareaAutosize
+                        value={message}
+                        autoComplete="false"
+                        readOnly={true}
+                        className={styles.textarea}
+                    />
+                    <VarNamesForm values={values} onChange={onChange} />
+                </div>
+
+                <div className={styles.preview__bottom}>
+                    <Button
+                        type="secondary"
+                        text="Close"
+                        onClick={() => togglePreview(false)}
+                    />
+                </div>
+            </div>
+        );
+    },
+);
 
 MessagePreview.displayName = "MessagePreview";

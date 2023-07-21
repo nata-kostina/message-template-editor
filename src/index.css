@@ -1,40 +1,87 @@
 :root {
-    /* COLORS */
-    --color-primary: #5B8AF7;
-    --color-highlight: #E25750;
+  /* COLORS */
+  --color-primary: #5b8af7;
+  --color-light-primary: #6f98fa;
+  --color-highlight: #e25750;
+  --color-light-highlight: #e0635c;
 
-    --color-blue-l: #282A30;
-    --color-blue-m: #404149;
-    --color-blue-s: #51525C;
+  --color-blue-l: #282a30;
+  --color-blue-m: #404149;
+  --color-blue-s: #51525c;
 
-    --color-grey-m: #CCCCCC;
+  --color-grey-m: #cccccc;
 
-    --color-white: #FFFFFF;
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-    /* SIZES */
-    --font-size-default: 1rem;
+  --color-text-highlight: #64a764;
+
+  --color-purple: #5889ef;
+
+  --color-border: #535a70;
+
+  /* SIZES */
+  --font-size-default: 1.8rem;
+  --font-size-m: 2rem;
+  --font-size-l: 2.2rem;
+
+  /* OTHER */
+  --box-shadow-normal: 0 1.5rem 4rem #6666669b;
+  --box-shadow-reduced: 0 1rem 2rem #6666669b;
 }
 
 @font-face {
-    font-family: Montserrat;
-    src: url(./assets/fonts/Montserrat-Regular.ttf);
-    font-weight: 400;
+  font-family: Montserrat;
+  src: url(./assets/fonts/Montserrat-Thin.ttf);
+  font-weight: 100;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(./assets/fonts/Montserrat-Light.ttf);
+  font-weight: 300;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(./assets/fonts/Montserrat-Regular.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(./assets/fonts/Montserrat-Medium.ttf);
+  font-weight: 500;
 }
 
 *,
 ::before,
 ::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    background-color: var(--color-blue-l);
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-default);
+  color: var(--color-white);
+  letter-spacing: 1px;
+
+  background-color: var(--color-blue-l);
+}
+
+@media screen and (max-width: 62.5em) {
+    html {
+        font-size: 50%;
+    }
+}
+@media screen and (max-width: 50em) {
+    html {
+        font-size: 45%;
+    }
 }

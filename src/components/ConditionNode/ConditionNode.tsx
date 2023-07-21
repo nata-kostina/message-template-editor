@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { WidgetDispatchContext } from "../../contexts/widget/widget.context";
-import { WidgetTextareaContainer } from "../MessageTemplateEditor/WidgetTextarea/WidgetTextareaContainer";
 import { deleteCondition } from "../../contexts/widget/widget.action.creators";
 import { IConditionNode } from "../../types/widget";
+import styles from "./styles.module.css";
+import { WidgetTextareaContainer } from "../WidgetTextarea/WidgetTextareaContainer";
 
 interface Props {
     nodeId: string;
@@ -16,42 +17,66 @@ export const ConditionNode = ({ nodeId, template }: Props) => {
     return (
         <>
             {node && (
-                <div style={{ width: "100%" }}>
+                <div>
                     <WidgetTextareaContainer
                         nodeId={node.id}
                         content={node.startContent}
                         data-testid="node-start-content"
                     />
                     {node.condition && (
-                        <div>
-                            <div style={{ paddingLeft: "50px", width: "100%" }}>
-                                <div>
-                                    IF:{" "}
-                                    <span>
-                                        <ConditionNode nodeId={node.condition.ifClauseId} template={template} />
-                                    </span>
-                                </div>
-                                <div>
-                                    THEN:{" "}
-                                    <span>
-                                        <ConditionNode nodeId={node.condition.thenClauseId} template={template} />
-                                    </span>
-                                </div>
-                                <div>
-                                    ELSE:{" "}
-                                    <span>
-                                        <ConditionNode nodeId={node.condition.elseClauseId} template={template} />
-                                    </span>
+                        <>
+                            <div className={styles.condition}>
+                                <div className={styles["btn-container"]}>
+                                    <button
+                                        className={styles.btn}
+                                        onClick={deleteConditionBlock}
+                                        data-testid="delete-condition"
+                                    >
+                                        &#215;
+                                    </button>
+                                    <div className={styles.line} />
                                 </div>
 
-                                <button onClick={deleteConditionBlock}>
-                                    Delete condition
-                                </button>
+                                <div className={styles.block}>
+                                    <span
+                                        className={styles["block-name"]}
+                                        style={{ color: "#6376ab" }}
+                                    >IF
+                                    </span>
+                                    <ConditionNode
+                                        nodeId={node.condition.ifClauseId}
+                                        template={template}
+                                    />
+                                </div>
+                                <div className={styles.block}>
+                                    <span
+                                        className={styles["block-name"]}
+                                        style={{ color: "#8e4e82" }}
+                                    >THEN
+                                    </span>
+                                    <ConditionNode
+                                        nodeId={node.condition.thenClauseId}
+                                        template={template}
+                                    />
+                                </div>
+                                <div className={styles.block}>
+                                    <span
+                                        className={styles["block-name"]}
+                                        style={{ color: "#8099ae" }}
+                                    >ELSE
+                                    </span>
+                                    <ConditionNode
+                                        nodeId={node.condition.elseClauseId}
+                                        template={template}
+                                    />
+                                </div>
+
                             </div>
-                            <span>
-                                <ConditionNode nodeId={node.condition.endContentId} template={template} />
-                            </span>
-                        </div>
+                            <ConditionNode
+                                nodeId={node.condition.endContentId}
+                                template={template}
+                            />
+                        </>
                     )}
                 </div>
             )}

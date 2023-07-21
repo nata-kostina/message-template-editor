@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from "react";
-import { setActiveTextarea, setContent } from "../../../contexts/widget/widget.action.creators";
-import { WidgetContext, WidgetDispatchContext } from "../../../contexts/widget/widget.context";
-import { IActiveTextarea } from "../../../types/widget";
-import { debounce } from "../../../utils/debounce";
+import { setActiveTextarea, setContent } from "../../contexts/widget/widget.action.creators";
+import { WidgetContext, WidgetDispatchContext } from "../../contexts/widget/widget.context";
+import { IActiveTextarea } from "../../types/widget";
+import { debounce } from "../../utils/debounce";
+
 import { MemoWidgetTextarea } from "./WidgetTextarea";
 
 interface Props {

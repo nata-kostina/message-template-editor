@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./styles.module.css";
 
 interface Props {
     varName: string;
@@ -12,12 +13,18 @@ export const VarNameInput = ({ varName, onChange }: Props) => {
         onChange({ name: event.target.name, value: event.target.value });
     };
     return (
-        <input
-            placeholder={varName}
-            name={varName}
-            onChange={onInputChange}
-            value={value}
-            autoComplete="false"
-        />
+        <div className={styles["input-group"]}>
+            <label htmlFor={varName} className={styles.label}>
+                {`{${varName}}`}
+            </label>
+            <input
+                name={varName}
+                onChange={onInputChange}
+                value={value}
+                autoComplete="false"
+                id={varName}
+                className={styles.input}
+            />
+        </div>
     );
 };

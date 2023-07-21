@@ -5,10 +5,12 @@ import { useTemplate } from "./hooks/useTemplate";
 import { IConditionNode } from "./types/widget";
 import { validateTemplate } from "./validation/validate";
 import { WidgetDispatchContext } from "./contexts/widget/widget.context";
-import { MessageTemplateEditorContainer } from "./components/MessageTemplateEditor/MessageTemplateEditorContainer";
+import { MessageTemplateEditorContainer }
+    from "./components/MessageTemplateEditor/MessageTemplateEditorContainer/MessageTemplateEditorContainer";
 import { initRoot, setConditions } from "./contexts/widget/widget.action.creators";
 import { generateNode } from "./utils/generateNode";
 import { Loader } from "./components/Loader/Loader";
+import { Panel } from "./components/Panel/Panel";
 
 export const App = () => {
     const dispatch = useContext(WidgetDispatchContext);
@@ -35,20 +37,30 @@ export const App = () => {
         setIsWidgetOpen(false);
     }, []);
 
+    const isLoading = varNameLoading || templateLoading;
+
     return (
         <main className={styles.main}>
-            {(varNameLoading || templateLoading) ? <Loader /> : (
-                <>
-                    <button onClick={() => setIsWidgetOpen(true)}>Message Editor</button>
-                    {isWidgetOpen && arrVarNames && (
-                        <MessageTemplateEditorContainer
-                            arrVarNames={arrVarNames}
-                            callbackSave={onSave}
-                            closeWidget={closeWidget}
-                        />
-                    )}
-                </>
+            {isLoading ? <Loader /> : (
+                <button
+                    className={styles.btn}
+                    onClick={() => setIsWidgetOpen(true)}
+                >Message Editor
+                </button>
             )}
+            <Panel
+                isOpen={isWidgetOpen}
+                header="Message Template Editor"
+                subheader="Edit Message"
+            >
+                {arrVarNames && (
+                    <MessageTemplateEditorContainer
+                        arrVarNames={arrVarNames}
+                        callbackSave={onSave}
+                        closeWidget={closeWidget}
+                    />
+                )}
+            </Panel>
         </main>
     );
 };

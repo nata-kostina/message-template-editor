@@ -1,10 +1,13 @@
 import React, { useContext, useCallback, useState } from "react";
-import { addCondition, addVarName } from "../../contexts/widget/widget.action.creators";
-import { WidgetContext, WidgetDispatchContext } from "../../contexts/widget/widget.context";
-import { VarNames, CallbackSave } from "../../types/widget";
-import { getRootNode } from "../../utils/getNode";
-import { MessagePreviewContainer } from "../MessagePreview/MessagePreviewContainer";
-import { MessageTemplateEditor } from "./MessageTemplateEditor";
+import { addCondition, addVarName } from "../../../contexts/widget/widget.action.creators";
+import { WidgetContext, WidgetDispatchContext } from "../../../contexts/widget/widget.context";
+import { VarNames, CallbackSave } from "../../../types/widget";
+import { getRootNode } from "../../../utils/getNode";
+import { MessagePreviewContainer } from "../../MessagePreview/MessagePreviewContainer";
+import { MessageTemplateEditor } from "../MessageTemplateEditor/MessageTemplateEditor";
+import styles from "./styles.module.css";
+import { UserActions } from "../../userActions/UserActions";
+import { Panel } from "../../Panel/Panel";
 
 interface Props {
     arrVarNames: VarNames;
@@ -12,7 +15,9 @@ interface Props {
     closeWidget: () => void;
 }
 
-export const MessageTemplateEditorContainer = ({ arrVarNames, callbackSave, closeWidget }: Props) => {
+export const MessageTemplateEditorContainer = ({
+    arrVarNames, callbackSave, closeWidget,
+}: Props) => {
     const { conditions } = useContext(WidgetContext);
     const rootConditionId = getRootNode(conditions)?.id;
     const dispatch = useContext(WidgetDispatchContext);
@@ -39,7 +44,10 @@ export const MessageTemplateEditorContainer = ({ arrVarNames, callbackSave, clos
 
     return (
         <>{rootConditionId && (
-            <div data-testid="message-editor">
+            <div
+                className={styles.editor}
+                data-testid="message-editor"
+            >
                 <MessageTemplateEditor
                     rootConditionId={rootConditionId}
                     arrVarNames={arrVarNames}
@@ -47,18 +55,21 @@ export const MessageTemplateEditorContainer = ({ arrVarNames, callbackSave, clos
                     addVariableName={addVariableName}
                     template={conditions}
                 />
-                <div>
-                    <button onClick={() => togglePreview(true)}>Preview</button>
-                    <button onClick={saveTemplate}>Save</button>
-                    <button onClick={closeWidget}>Close</button>
-                </div>
-                {isPreviewOpen && (
+                <UserActions
+                    closeWidget={closeWidget}
+                    saveTemplate={saveTemplate}
+                    togglePreview={togglePreview}
+                />
+                <Panel
+                    header="Message Preview"
+                    isOpen={isPreviewOpen}
+                >
                     <MessagePreviewContainer
                         togglePreview={togglePreview}
                         arrVarNames={arrVarNames}
                         template={conditions}
                     />
-                )}
+                </Panel>
             </div>
         )}
         </>

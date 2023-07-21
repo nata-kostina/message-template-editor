@@ -1,0 +1,7 @@
+.user-actions {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  align-items: end;
+  grid-column-gap: 1.5rem;
+  margin-top: 3rem;
+}

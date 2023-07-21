@@ -1,0 +1,120 @@
+.condition {
+  position: relative;
+  padding-left: 5rem;
+  margin: 3rem 0;
+}
+
+.block {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: start;
+  grid-column-gap: 2rem;
+  grid-template-columns: max-content 1fr;
+}
+
+.block:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.block-name {
+  display: block;
+  padding-top: 1rem;
+  width: 8rem;
+
+  text-align: end;
+  text-transform: capitalize;
+
+  font-weight: 500;
+}
+
+.btn-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.btn {
+  width: 4rem;
+  height: 4rem;
+
+  position: relative;
+
+  border: unset;
+  outline: none;
+
+  font-family: inherit;
+  color: var(--color-white);
+  font-size: 6rem;
+  font-weight: 100;
+  line-height: 0.3;
+
+  background-color: var(--color-blue-l);
+  border-radius: 0.6rem;
+
+  transition: all 0.2s;
+
+  cursor: pointer;
+
+  z-index: 10;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--color-blue-s);
+}
+
+.btn:after {
+  content: "Delete";
+  display: none;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  font-size: 1.5rem;
+  color: var(--color-white);
+}
+
+.line {
+  position: absolute;
+  top: 0;
+
+  height: 100%;
+
+  width: 2rem;
+  border-right: 2px dashed var(--color-blue-l);
+}
+
+@media screen and (max-width: 50em) {
+  .block-name {
+    width: 4rem;
+  }
+}
+@media screen and (max-width: 31.25em) {
+  .condition {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin: 2rem 0;
+  }
+  .btn-container {
+    position: static;
+    margin-left: auto;
+  }
+  .btn {
+    color: var(--color-blue-l);
+    width: 8rem;
+  }
+  .btn:after {
+    display: block;
+  }
+  .line {
+    display: none;
+  }
+  .block:not(:first-child) {
+    margin-top: 1rem;
+  }
+}
