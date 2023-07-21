@@ -7,7 +7,7 @@ import { validateTemplate } from "./validation/validate";
 import { WidgetDispatchContext } from "./contexts/widget/widget.context";
 import { MessageTemplateEditorContainer }
     from "./components/MessageTemplateEditor/MessageTemplateEditorContainer/MessageTemplateEditorContainer";
-import { initRoot, setConditions } from "./contexts/widget/widget.action.creators";
+import { initRoot, setConditions, setTemplate } from "./contexts/widget/widget.action.creators";
 import { generateNode } from "./utils/generateNode";
 import { Loader } from "./components/Loader/Loader";
 import { Panel } from "./components/Panel/Panel";
@@ -16,15 +16,19 @@ export const App = () => {
     const dispatch = useContext(WidgetDispatchContext);
     const [isWidgetOpen, setIsWidgetOpen] = useState(false);
     const { loading: varNameLoading, data: arrVarNames } = useVarNames();
-    const { loading: templateLoading, data: template, setTemplate } = useTemplate();
+    const { loading: templateLoading, data: template, setTemplate: updateTemplate } = useTemplate();
 
     const onSave = async (templateObj: Record<string, IConditionNode>) => {
-        return validateTemplate(templateObj).then((data) => setTemplate(data));
+        return validateTemplate(templateObj).then((data) => {
+            updateTemplate(data);
+            dispatch(setTemplate(data ?? {}));
+        });
     };
 
     useEffect(() => {
         if (!templateLoading) {
             if (template) {
+                dispatch(setTemplate(template));
                 dispatch(setConditions(template));
             } else {
                 const rootNode = generateNode("");

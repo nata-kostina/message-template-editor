@@ -1,5 +1,5 @@
-import React, { useContext, useCallback, useState } from "react";
-import { addCondition, addVarName } from "../../../contexts/widget/widget.action.creators";
+import React, { useContext, useCallback, useState, useEffect } from "react";
+import { addCondition, addVarName, setConditions } from "../../../contexts/widget/widget.action.creators";
 import { WidgetContext, WidgetDispatchContext } from "../../../contexts/widget/widget.context";
 import { VarNames, CallbackSave } from "../../../types/widget";
 import { getRootNode } from "../../../utils/getNode";
@@ -18,9 +18,15 @@ interface Props {
 export const MessageTemplateEditorContainer = ({
     arrVarNames, callbackSave, closeWidget,
 }: Props) => {
-    const { conditions } = useContext(WidgetContext);
-    const rootConditionId = getRootNode(conditions)?.id;
+    const { conditions, template } = useContext(WidgetContext);
+    const rootConditionId = getRootNode(template)?.id;
     const dispatch = useContext(WidgetDispatchContext);
+
+    useEffect(() => {
+        return () => {
+            dispatch(setConditions(template));
+        };
+    }, [dispatch, template]);
 
     const addNewCondition = useCallback(() => {
         dispatch(addCondition());

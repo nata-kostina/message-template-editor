@@ -1,11 +1,12 @@
 import {
     Actions, AddConditionAction, AddVarNameAction,
-    DeleteConditionAction, InitRootAction, SetActiveTextareaAction, SetConditionsAction, SetContentAction, WidgetState,
+    DeleteConditionAction, InitRootAction, SetActiveTextareaAction, SetConditionsAction, SetContentAction, SetTemplateAction, WidgetState,
 } from "../../../../types/context";
 import { IActiveTextarea, IConditionNode } from "../../../../types/widget";
 import { rootReducer } from "../root.reducer";
 
 const initialState: WidgetState = {
+    template: {},
     conditions: {},
     activeTextarea: {
         nodeId: null,
@@ -28,6 +29,7 @@ describe("Widget Context", () => {
                 nodeId: "node-1",
                 location: 5,
             },
+            template: {},
         };
         const action: AddConditionAction = {
             type: Actions.addCondition,
@@ -54,6 +56,7 @@ describe("Widget Context", () => {
                 nodeId: "node-1",
                 location: 7,
             },
+            template: {},
         };
         const action: AddVarNameAction = { type: Actions.addVarName, payload: "firstname" };
         const state = rootReducer(stateWithOneNode, action);
@@ -108,6 +111,7 @@ describe("Widget Context", () => {
                 nodeId: "if-node",
                 location: 0,
             },
+            template: {},
         };
 
         const action: DeleteConditionAction = { type: Actions.deleteCondition, payload: "start-node" };
@@ -151,6 +155,7 @@ describe("Widget Context", () => {
                 nodeId: "node-1",
                 location: 7,
             },
+            template: {},
         };
         const activeTextarea: IActiveTextarea = {
             nodeId: "node-1",
@@ -226,6 +231,7 @@ describe("Widget Context", () => {
                 nodeId: "node-1",
                 location: 7,
             },
+            template: {},
         };
         const content = "Hello, {firstname}!";
         const action: SetContentAction = {
@@ -235,5 +241,51 @@ describe("Widget Context", () => {
         const state = rootReducer(stateWithOneNode, action);
 
         expect(state.conditions["node-1"].startContent).toBe(content);
+    });
+
+    it("should set template", () => {
+        const template: Record<string, IConditionNode> = {
+            "start-node": {
+                id: "start-node",
+                parentId: null,
+                startContent: "Hi, {firstname}! ",
+                condition: {
+                    ifClauseId: "if-node",
+                    thenClauseId: "then-node",
+                    elseClauseId: "else-node",
+                    endContentId: "end-node",
+                },
+            },
+            "if-node": {
+                id: "if-node",
+                parentId: "start-node",
+                startContent: "{company}",
+                condition: null,
+            },
+            "then-node": {
+                id: "then-node",
+                parentId: "start-node",
+                startContent: "I see you work at {company}.",
+                condition: null,
+            },
+            "else-node": {
+                id: "else-node",
+                parentId: "start-node",
+                startContent: "Where do you work?",
+                condition: null,
+            },
+            "end-node": {
+                id: "end-node",
+                parentId: "start-node",
+                startContent: "\nRegards",
+                condition: null,
+            },
+        };
+
+        const action: SetTemplateAction = { type: Actions.setTemplate, payload: template };
+        const state = rootReducer(initialState, action);
+
+        expect(Object.keys(state.template).length).toBe(5);
+        expect(state.template).toStrictEqual(template);
     });
 });

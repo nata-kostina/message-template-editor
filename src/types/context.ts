@@ -1,6 +1,7 @@
 import { IConditionNode, IActiveTextarea } from "./widget";
 
 export type WidgetState = {
+    template: Record<string, IConditionNode>;
     conditions: Record<string, IConditionNode>;
     activeTextarea: IActiveTextarea;
 };
@@ -13,6 +14,7 @@ export enum Actions {
     setContent = "widget/setContent",
     addVarName = "widget/addVerName",
     deleteCondition = "widget/deleteCondition",
+    setTemplate = "widget/setTemplate",
 }
 
 export type InitRootAction = { type: Actions.initRootCondition; payload: IConditionNode; };
@@ -22,6 +24,7 @@ export type SetConditionsAction = { type: Actions.setConditions; payload: Record
 export type SetContentAction = { type: Actions.setContent; payload: { nodeId: string; content: string; }; };
 export type AddVarNameAction = { type: Actions.addVarName; payload: string; };
 export type DeleteConditionAction = { type: Actions.deleteCondition; payload: string; };
+export type SetTemplateAction = { type: Actions.setTemplate; payload: Record<string, IConditionNode>; };
 
 export type Action = InitRootAction |
 AddConditionAction |
@@ -29,4 +32,5 @@ SetActiveTextareaAction |
 SetConditionsAction |
 SetContentAction |
 AddVarNameAction |
-DeleteConditionAction;
+DeleteConditionAction |
+SetTemplateAction;

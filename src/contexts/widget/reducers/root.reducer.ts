@@ -6,6 +6,7 @@ import { setActiveTextareaReducer } from "./setActiveTextarea.reducer";
 import { setConditionsReducer } from "./setConditions.reducer";
 import { setContentReducer } from "./setContent.reducer";
 import { deleteConditionReducer } from "./deleteCondition.reducer";
+import { setTemplateReducer } from "./setTemplate.reducer";
 
 export const rootReducer = (state: WidgetState, action: Action): WidgetState => {
     switch (action.type) {
@@ -23,6 +24,8 @@ export const rootReducer = (state: WidgetState, action: Action): WidgetState => 
             return addVarNameReducer(state, action.payload);
         case Actions.deleteCondition:
             return deleteConditionReducer(state, action.payload);
+        case Actions.setTemplate:
+            return setTemplateReducer(state, action.payload);
         default:
             return state;
     }

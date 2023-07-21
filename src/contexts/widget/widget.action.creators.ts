@@ -1,7 +1,7 @@
 import {
     Actions, AddConditionAction, AddVarNameAction,
     DeleteConditionAction,
-    InitRootAction, SetActiveTextareaAction, SetConditionsAction, SetContentAction,
+    InitRootAction, SetActiveTextareaAction, SetConditionsAction, SetContentAction, SetTemplateAction,
 } from "../../types/context";
 import { IConditionNode, IActiveTextarea } from "../../types/widget";
 
@@ -23,3 +23,6 @@ export const addVarName = (payload: string): AddVarNameAction =>
 
 export const deleteCondition = (payload: string): DeleteConditionAction =>
     ({ type: Actions.deleteCondition, payload });
+
+export const setTemplate = (payload: Record<string, IConditionNode>): SetTemplateAction =>
+    ({ type: Actions.setTemplate, payload });

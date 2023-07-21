@@ -58,9 +58,10 @@ describe("App", () => {
                 nodeId: "node-1",
                 location: 0,
             },
+            template: {},
         };
 
-        const { getByRole, findByTestId } = render(
+        const { getByRole, findByRole } = render(
             <WidgetContext.Provider value={mockWidgetContext}>
                 <App />
             </WidgetContext.Provider>);
@@ -69,7 +70,7 @@ describe("App", () => {
 
         fireEvent.click(button);
 
-        const editor = await findByTestId("message-editor");
+        const editor = await findByRole("heading", { level: 2, name: "Message Template Editor" });
         expect(editor).toBeInTheDocument();
     });
 });
