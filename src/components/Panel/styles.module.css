@@ -13,7 +13,7 @@
   right: 0;
 
   width: 80%;
-  min-height: 100vh;
+  min-height: 100svh;
 
   background-color: var(--color-blue-m);
   transform: translateX(100%);
@@ -30,7 +30,7 @@
 
 .panel__inner {
   padding: 4rem 5rem;
-  min-height: 100vh;
+  min-height: 100svh;
   height: 100%;
 
   display: flex;
