@@ -49,7 +49,9 @@ export const MessageTemplateEditorContainer = ({
     // save template to local storage
     const saveTemplate = useCallback(() => {
         callbackSave(conditions)
+            // eslint-disable-next-line no-alert
             .then(() => alert("Template was successfully saved"))
+            // eslint-disable-next-line no-alert
             .catch(() => alert("Error! Template was not saved. Please try again."));
     }, [callbackSave, conditions]);
 
