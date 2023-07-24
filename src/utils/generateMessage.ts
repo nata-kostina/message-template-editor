@@ -6,7 +6,7 @@ export const generateMessage = (values: Record<string, string | null>,
     const rootCondition = getRootNode(template);
     if (!rootCondition) { return ""; }
     const node: IConditionNode | null = rootCondition;
-    const message = traverseNode(node, values, template);
+    const message = traverseNode(node, values, template);// traverse through each condition
 
     return message;
 };
@@ -15,20 +15,20 @@ const traverseNode = (node: IConditionNode | null,
     values: Record<string, string | null>,
     template: Record<string, IConditionNode>): string => {
     if (!node) { return ""; }
-    let message = mapValuesToContent(node.startContent, values);
+    let message = mapValuesToContent(node.startContent, values); // replace variables with values
 
-    const ifNode = getSubNode(node, template, "if");
+    const ifNode = getSubNode(node, template, "if"); // get if-block
 
     if (!ifNode) {
         return message;
     }
 
     const ifMessage = mapValuesToContent(ifNode.startContent, values);
-    const thenNode = getSubNode(node, template, "then");
-    const elseNode = getSubNode(node, template, "else");
-    const endNode = getSubNode(node, template, "end");
+    const thenNode = getSubNode(node, template, "then");// get then-block
+    const elseNode = getSubNode(node, template, "else");// get else-block
+    const endNode = getSubNode(node, template, "end");// get end-node
 
-    if (ifMessage.length > 0) {
+    if (ifMessage.length > 0) { // if condition is not null
         if (thenNode) {
             message += traverseNode(thenNode, values, template);
         }

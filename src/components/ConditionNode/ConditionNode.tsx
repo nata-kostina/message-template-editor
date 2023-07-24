@@ -21,7 +21,6 @@ export const ConditionNode = ({ nodeId, template }: Props) => {
                     <WidgetTextareaContainer
                         nodeId={node.id}
                         content={node.startContent}
-                        data-testid="node-start-content"
                     />
                     {node.condition && (
                         <>

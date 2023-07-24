@@ -1,23 +1,23 @@
 import React from "react";
-import { IConditionNode, VarNames } from "../../../types/widget";
+import { IConditionNode } from "../../../types/widget";
 import { ConditionNode } from "../../ConditionNode/ConditionNode";
 import { VarNamesList } from "../../VarNamesList/VarNamesList";
 import styles from "./styles.module.css";
 
 interface Props {
-    arrVarNames: VarNames;
+    arrVarNames: string[];
     addNewCondition: () => void;
     addVariableName: (varName: string) => void;
-    rootConditionId: string;
     template: Record<string, IConditionNode>;
+    rootId: string;
 }
 
 export const MessageTemplateEditor = React.memo(({
     arrVarNames,
     addNewCondition,
     addVariableName,
-    rootConditionId,
     template,
+    rootId,
 }: Props) => {
     return (
         <div className={styles.editor}>
@@ -31,9 +31,10 @@ export const MessageTemplateEditor = React.memo(({
                     >IF-THEN-ELSE
                     </button>
                 </div>
-                <ConditionNode nodeId={rootConditionId} template={template} />
+                <ConditionNode nodeId={rootId} template={template} />
             </div>
         </div>
+
     );
 });
 MessageTemplateEditor.displayName = "MessageTemplateEditor";

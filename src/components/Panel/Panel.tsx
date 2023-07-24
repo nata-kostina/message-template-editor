@@ -16,7 +16,7 @@ export const Panel = ({ header, subheader, children, isOpen, customStyles }: Pro
     useEffect(() => {
         if (isOpen) { setRender(true); }
     }, [isOpen]);
-
+    // hide panel after animation
     const onAnimationEnd = () => {
         if (!isOpen) { setRender(false); }
     };

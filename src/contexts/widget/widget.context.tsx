@@ -3,9 +3,9 @@ import { Action, WidgetState } from "../../types/context";
 import { rootReducer } from "./reducers/root.reducer";
 
 const initialState: WidgetState = {
-    template: {},
-    conditions: {},
-    activeTextarea: { nodeId: null, location: 0 },
+    template: {}, // stores template from local storage
+    conditions: {}, // store all created condition nodes
+    activeTextarea: { nodeId: null, location: 0 }, // active textarea
 };
 export const WidgetContext = createContext<WidgetState>(initialState);
 export const WidgetDispatchContext = createContext<React.Dispatch<Action>>(() => {});

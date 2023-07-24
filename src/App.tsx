@@ -7,8 +7,7 @@ import { validateTemplate } from "./validation/validate";
 import { WidgetDispatchContext } from "./contexts/widget/widget.context";
 import { MessageTemplateEditorContainer }
     from "./components/MessageTemplateEditor/MessageTemplateEditorContainer/MessageTemplateEditorContainer";
-import { initRoot, setConditions, setTemplate } from "./contexts/widget/widget.action.creators";
-import { generateNode } from "./utils/generateNode";
+import { setConditions, setTemplate } from "./contexts/widget/widget.action.creators";
 import { Loader } from "./components/Loader/Loader";
 import { Panel } from "./components/Panel/Panel";
 
@@ -20,20 +19,15 @@ export const App = () => {
 
     const onSave = async (templateObj: Record<string, IConditionNode>) => {
         return validateTemplate(templateObj).then((data) => {
-            updateTemplate(data);
-            dispatch(setTemplate(data ?? {}));
+            updateTemplate(data); // set template to local storage
+            dispatch(setTemplate(data ?? {})); // set template to context
         });
     };
 
     useEffect(() => {
-        if (!templateLoading) {
-            if (template) {
-                dispatch(setTemplate(template));
-                dispatch(setConditions(template));
-            } else {
-                const rootNode = generateNode("");
-                dispatch(initRoot(rootNode));
-            }
+        if (!templateLoading && template) { // if there is template in local storage
+            dispatch(setTemplate(template)); // set template to context
+            dispatch(setConditions(template)); // set condition nodes equaled to template
         }
     }, [templateLoading, template, dispatch]);
 
@@ -42,7 +36,6 @@ export const App = () => {
     }, []);
 
     const isLoading = varNameLoading || templateLoading;
-
     return (
         <main className={styles.main}>
             {isLoading ? <Loader /> : (
@@ -62,6 +55,7 @@ export const App = () => {
                         arrVarNames={arrVarNames}
                         callbackSave={onSave}
                         closeWidget={closeWidget}
+                        template={template}
                     />
                 )}
             </Panel>

@@ -1,9 +1,8 @@
 import React from "react";
-import { VarNames } from "../../types/widget";
 import styles from "./styles.module.css";
 
 interface Props {
-    arrVarNames: VarNames;
+    arrVarNames: string[];
     addVarName: (varName: string) => void;
 }
 

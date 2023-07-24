@@ -15,12 +15,13 @@ export const WidgetTextareaContainer = ({ nodeId, content }: Props) => {
     const { activeTextarea } = useContext(WidgetContext);
     const dispatch = useContext(WidgetDispatchContext);
     const ref = useRef<HTMLTextAreaElement>(null);
-
+    // debounced function to change active textarea
     const debouncedDispatchChangeActiveTextarea = useMemo(
         () => debounce((payload: IActiveTextarea) => {
             dispatch(setActiveTextarea(payload));
         }), [dispatch]);
 
+    // change active textarea when textarea us selected
     const onSelect = useCallback(() => {
         if (ref.current) {
             debouncedDispatchChangeActiveTextarea({ nodeId, location: ref.current.selectionStart });
@@ -29,14 +30,17 @@ export const WidgetTextareaContainer = ({ nodeId, content }: Props) => {
 
     const onChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
         event.preventDefault();
+        // set content for the textarea
         dispatch(setContent({ nodeId, content: event.target.value }));
     }, [dispatch, nodeId]);
 
     useEffect(() => {
+        // if current textarea is active and not on focus
         if (nodeId === activeTextarea.nodeId
             && ref.current && document.activeElement !== ref.current &&
             document.hasFocus()) {
-            ref.current.focus();
+            ref.current.focus(); // focus on current textarea
+            // set cursor to the right place
             ref.current.setSelectionRange(activeTextarea.location, activeTextarea.location);
         }
     }, [activeTextarea, nodeId]);
