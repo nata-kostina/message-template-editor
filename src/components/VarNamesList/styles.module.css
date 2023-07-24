@@ -1,10 +1,12 @@
 .list {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  grid-column-gap: 1.5rem;
-
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
   list-style: none;
+}
+
+.list__item:not(:last-child) {
+  margin-right: 1.5rem;
 }
 
 .list__title {

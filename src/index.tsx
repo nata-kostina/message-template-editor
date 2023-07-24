@@ -8,8 +8,10 @@ const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement,
 );
 root.render(
-    <WidgetProvider>
-        <App />
-    </WidgetProvider>
+    <React.StrictMode>
+        <WidgetProvider>
+            <App />
+        </WidgetProvider>
+    </React.StrictMode>
     ,
 );
