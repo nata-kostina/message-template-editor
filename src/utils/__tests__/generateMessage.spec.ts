@@ -565,4 +565,99 @@ describe("Generate message", () => {
         const message8 = generateMessage(values8, template);
         expect(message8).toBe(expectedMessage8);
     });
+
+    it("should allow variable values wrapped in curly brackets and equaled to variable name", () => {
+        const template: Record<string, IConditionNode> = {
+            "start-node": {
+                id: "start-node",
+                parentId: null,
+                startContent:
+          "Hi, {firstname}!",
+                condition: null,
+            },
+        };
+        const values: Record<string, string | null> = {
+            firstname: "{lastname}",
+            lastname: null,
+        };
+        const expectedMessage = "Hi, {lastname}!";
+        const message = generateMessage(values, template);
+        expect(message).toBe(expectedMessage);
+    });
+
+    it("should allow trailing curly brackets in the variable values", () => {
+        const template: Record<string, IConditionNode> = {
+            "start-node": {
+                id: "start-node",
+                parentId: null,
+                startContent:
+          "Hi, {firstname} {lastname}!",
+                condition: null,
+            },
+        };
+        const values: Record<string, string | null> = {
+            firstname: "{Bob",
+            lastname: "Smith}A",
+        };
+        const expectedMessage = "Hi, {Bob Smith}A!";
+        const message = generateMessage(values, template);
+        expect(message).toBe(expectedMessage);
+    });
+
+    it("should allow trailing curly brackets in the variable names", () => {
+        const template: Record<string, IConditionNode> = {
+            "start-node": {
+                id: "start-node",
+                parentId: null,
+                startContent:
+          "Hi, {first{name} {last}name}!",
+                condition: null,
+            },
+        };
+        const values: Record<string, string | null> = {
+            "first{name": "Bob",
+            "last}name": "Smith",
+        };
+        const expectedMessage = "Hi, Bob Smith!";
+        const message = generateMessage(values, template);
+        expect(message).toBe(expectedMessage);
+    });
+
+    it("should allow nested curly brackets in the variable values", () => {
+        const template: Record<string, IConditionNode> = {
+            "start-node": {
+                id: "start-node",
+                parentId: null,
+                startContent:
+          "Hi, {firstname} {lastname}!",
+                condition: null,
+            },
+        };
+        const values: Record<string, string | null> = {
+            firstname: "{Bob{lastname}}",
+            lastname: null,
+        };
+        const expectedMessage = "Hi, {Bob{lastname}} !";
+        const message = generateMessage(values, template);
+        expect(message).toBe(expectedMessage);
+    });
+
+    it("should allow nested curly brackets in the variable names", () => {
+        const template: Record<string, IConditionNode> = {
+            "start-node": {
+                id: "start-node",
+                parentId: null,
+                startContent:
+          "Hi, {{first{name}}} {{la{st}name}}!",
+                condition: null,
+            },
+        };
+        const values: Record<string, string | null> = {
+            "{first{name}}": "Bob",
+            "{la{st}name}": "Smith",
+        };
+        const expectedMessage = "Hi, Bob Smith!";
+        const message = generateMessage(values, template);
+        expect(message).toBe(expectedMessage);
+    });
 });
